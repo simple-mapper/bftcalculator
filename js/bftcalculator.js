@@ -13,7 +13,7 @@ var bftcalculator = {
     var txt = `
     <h3>Summary</h3>
     <p id="bft-${id}">value</p>
-    <h3>Inputs</h3>
+    <h3>Inputs <span class="smalltext">(All Required)</span></h3>
     <form id="bftform-${id}">
     <label for="thickness">Thickness(in)</label><br>
     <input type="number" id="thickness-${id}" name="thickness"><br>
@@ -28,6 +28,21 @@ var bftcalculator = {
     <input type="number" id="each-${id}" name="each"><br>
     <label for="mbft">mbft ($)</label><br>
     <input type="number" id="mbft-${id}" name="mbft"><br>
+    </form>
+    <h3>Description <span class="smalltext">(optional)</span></h3>
+    <form id="bftdescform-${id}">
+    <label for="type">Type</label>
+    <br>
+    <select name="type" id="type-${id}" form="bftdescform-${id}">
+    <option value="blank">blank</option>
+    <option value="SYP">SYP - Southern Yellow Pine</option>
+    <option value="SPF">SPF - Spruce, Pine & Fir</option>
+    <option value="HW">HW - Hardwood</option>
+    <option value="SW">SW - Softwood</option>
+    </select>
+    </br>
+    <label for="other">Other</label><br>
+    <input type="text" id="other-${id}" name="other"><br>
     </form>
     <br>
     `;
@@ -45,10 +60,15 @@ var bftcalculator = {
       bftcalculator.updatePrice(this.elements, id);
     });
 
+    document.getElementById(`bftdescform-${id}`).addEventListener('change', function() {
+      bftcalculator.updateDesc(this.elements, id);
+    });
+
   },
   bft: 0,
   specs: {},
   cal: {},
+  desc: {},
   update: (el, id) => {
 
     var obj ={};
@@ -116,6 +136,28 @@ var bftcalculator = {
     }
 
   },
+  updateDesc: (el, id) => {
+
+    var obj ={};
+    var count = 0;
+    var keySave = "";
+    for(var i = 0 ; i < el.length ; i++){
+      var item = el.item(i);
+      obj[item.name] = item.value;
+      if(obj[item.name] > 0) {
+        count++;
+      }
+    }
+
+    //type & other
+
+    if(bftcalculator.bft > 0){
+      bftcalculator.desc = obj;
+      bftcalculator.setSummary(id);
+    }
+
+
+  },
   calPricembft: (each, bft) => {
 
     var mult = 1000/bft;
@@ -138,6 +180,7 @@ var bftcalculator = {
     var EAs = bftcalculator.round(1000/bftcalculator.bft);
     var specs = bftcalculator.specs;
     var cal = bftcalculator.cal;
+    var desc = bftcalculator.desc;
 
     var txt = `${specs.thickness}"x${specs.width}"x${specs.length}'`;
 
@@ -145,6 +188,24 @@ var bftcalculator = {
 
     if(cal.each != undefined){
       txt = txt + `, $${bftcalculator.round(cal.each)} EA, $${bftcalculator.round(cal.mbft)} mbft`;
+    }
+
+    var str = "";
+
+    if(desc.type != undefined && desc.type != "blank"){
+      if (desc.other) {
+        str = `${desc.type}, ${desc.other}, `;
+      }
+      else {
+        str = `${desc.type}, `;
+      }
+      txt = str + txt;
+    }
+    else if (desc.type != undefined) {
+      if (desc.other) {
+        str = `${desc.other}, `;
+      }
+      txt = str + txt;
     }
 
     //specs
