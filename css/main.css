@@ -1,0 +1,51 @@
+.header {
+  margin-top: 0.5em;
+}
+
+.bottom {
+  font-size: 50%;
+}
+
+.select {
+  cursor: pointer;
+  color: black;
+}
+
+.container-overall {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.transbox {
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.9;
+  border-radius: 25px;
+  overflow: auto;
+}
+
+.smalltext {
+  font-size: 0.5em;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: left;
+  padding: 8px;
+}
+
+table {
+  margin-bottom: 1em;
+}
+
+body {
+  background-image: url('wood.jpg');
+  background-size: cover;
+  background-color:rgba(0,255,0, 0.3);
+}

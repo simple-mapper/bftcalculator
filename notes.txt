@@ -1,0 +1,14 @@
+//
+Add a description field
+
+TYPE - SYP, Grade, Surfaces or not, Random lengths
+
+Local Save feature
+
+Cal descriptions
+
+Google Analytics
+
+Easy copy button
+
+Optimize for the phone
