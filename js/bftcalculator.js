@@ -11,7 +11,7 @@ var bftcalculator = {
     var id = "1";
 
     var txt = `
-    <h3>Summary</h3>
+    <h3>Summary <button class="smalltext" id="reset-${id}">Reset All</button></h3>
     <p id="bft-${id}">value</p>
     <h3>Inputs <span class="smalltext">(All Required)</span></h3>
     <form id="bftform-${id}">
@@ -62,6 +62,13 @@ var bftcalculator = {
 
     document.getElementById(`bftdescform-${id}`).addEventListener('change', function() {
       bftcalculator.updateDesc(this.elements, id);
+    });
+
+    document.getElementById(`reset-${id}`).addEventListener('click', function() {
+      bftcalculator.bft = 0;
+      bftcalculator.specs = {};
+      bftcalculator.desc = {};
+      bftcalculator.form();
     });
 
   },

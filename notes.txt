@@ -1,14 +1,22 @@
 //
 Add a description field
 
-TYPE - SYP, Grade, Surfaces or not, Random lengths
-
-Local Save feature
-
 Cal descriptions
-
-Google Analytics
 
 Easy copy button
 
 Optimize for the phone
+
+Improve - with Grades / etc
+TYPE - SYP, Grade, Surfaces or not, Random lengths
+
+Shipping instructions - tarped vs non-tarped / train or TL, etc
+
+Make a PWA / Android App for the store
+
+//Advanced feature
+weight and truck load estimate - builder
+
+bundle sizes - be cool to make actual layouts
+
+Local Save feature
