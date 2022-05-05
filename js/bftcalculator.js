@@ -65,10 +65,7 @@ var bftcalculator = {
     });
 
     document.getElementById(`reset-${id}`).addEventListener('click', function() {
-      bftcalculator.bft = 0;
-      bftcalculator.specs = {};
-      bftcalculator.desc = {};
-      bftcalculator.form();
+      bftcalculator.reset();
     });
 
   },
@@ -76,6 +73,12 @@ var bftcalculator = {
   specs: {},
   cal: {},
   desc: {},
+  reset: () => {
+    bftcalculator.bft = 0;
+    bftcalculator.specs = {};
+    bftcalculator.desc = {};
+    bftcalculator.form();
+  },
   update: (el, id) => {
 
     var obj ={};
@@ -181,7 +184,7 @@ var bftcalculator = {
     return val;
 
   },
-  setSummary: (id) => {
+  setText: (id) => {
 
     var bft = bftcalculator.round(bftcalculator.bft);
     var EAs = bftcalculator.round(1000/bftcalculator.bft);
@@ -215,7 +218,11 @@ var bftcalculator = {
       txt = str + txt;
     }
 
-    //specs
+    return txt
+  },
+  setSummary: (id) => {
+
+    var txt = bftcalculator.setText(id);
 
     document.getElementById(`bft-${id}`).innerHTML = txt;
 
@@ -223,8 +230,22 @@ var bftcalculator = {
   round: (num) => {
     var val = Math.round((num + Number.EPSILON) * 100)/100;
     return val;
-  }
+  },
+  addTable: (id) => {
 
+    var obj = {};
+
+    obj.bft = bftcalculator.bft;
+    obj.specs = bftcalculator.specs;
+    obj.cal = bftcalculator.cal;
+    obj.desc = bftcalculator.desc;
+
+    obj.txt = bftcalculator.setText(id);
+
+    
+
+
+  }
 };
 
 bftcalculator.init();
