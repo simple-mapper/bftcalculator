@@ -44,7 +44,9 @@ var bftcalculator = {
     <label for="other">Other</label><br>
     <input type="text" id="other-${id}" name="other"><br>
     </form>
-    <br>
+    <button class="smalltext" id="add-${id}">Add</button>
+    <button class="smalltext" id="remove-${id}">Remove All</button>
+    <br></br>
     `;
 
     bftcalculator.gen(txt, id);
@@ -66,6 +68,14 @@ var bftcalculator = {
 
     document.getElementById(`reset-${id}`).addEventListener('click', function() {
       bftcalculator.reset();
+    });
+
+    document.getElementById(`add-${id}`).addEventListener('click', function() {
+      bftcalculator.addTable(id);
+    });
+
+    document.getElementById(`remove-${id}`).addEventListener('click', function() {
+      bftcalculator.removeAll();
     });
 
   },
@@ -242,9 +252,24 @@ var bftcalculator = {
 
     obj.txt = bftcalculator.setText(id);
 
-    
+    if(obj.bft != ""){
 
+      var data = localStorage.getItem("bftData");
 
+      if(data == null){
+        data = "";
+      }
+      data = data + `id: Saved, data: ${obj.txt}-${id}\n`;
+
+      localStorage.setItem("bftData", data);
+
+      tablesjs.init();
+    }
+
+  },
+  removeAll: () => {
+    localStorage.removeItem("bftData");
+    tablesjs.init();
   }
 };
 

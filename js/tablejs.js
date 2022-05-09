@@ -1,6 +1,7 @@
 var tablesjs = {
   init: () => {
-    tablesjs.read();
+    //tablesjs.read();
+    tablesjs.readLocalStorage();
   },
   read: () => {
     fetch('Output.txt')
@@ -15,6 +16,22 @@ var tablesjs = {
       document.getElementById("results").innerHTML = txt;
 
     })
+  },
+  readLocalStorage: () => {
+
+    var text = localStorage.getItem("bftData");
+
+    if(text != null) {
+      var obj = tablesjs.parse(text);
+      var txt = tablesjs.createTable(obj);
+      tablesjs.obj = obj;
+
+      document.getElementById("results").innerHTML = txt;
+    }
+    else {
+      document.getElementById("results").innerHTML = "";
+    }
+
   },
   gen: (text) => {
 
@@ -302,4 +319,4 @@ var tablesjs = {
   }
 }
 
-//tablesjs.init();
+tablesjs.init();
